@@ -44,10 +44,10 @@ class Product extends Model
     return $this->belongsTo(ProductBrands::class, 'product_brand_id');
   }
 
-  public function category()
-  {
-    return $this->belongsTo(ProductCategories::class, 'product_category_id');
-  }
+  // public function category()
+  // {
+  //   return $this->belongsTo(ProductCategories::class, 'product_category_id');
+  // }
 
   public function images()
   {

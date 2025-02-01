@@ -20,10 +20,10 @@ return new class extends Migration
       $table->text('description')->nullable();
       $table->decimal('price', 15, 2);
       $table->integer('discount')->nullable();
-      $table->string('image')->nullable();
+      $table->string('thumbnail')->nullable();
       $table->integer('total_stock_qty')->nullable();
       $table->tinyInteger('visibility')->nullable();
-      $table->foreignId('product_category_id')
+      $table->foreignId('category_id')
         ->nullable()
         ->constrained()
         ->onUpdate('cascade')
