@@ -6,6 +6,28 @@
   </a>
 
   <div class="sidebar">
+    <div class="dropdown user-menu">
+      <a href="#" class="nav-link user-panel dropdown-toggle py-2" data-toggle="dropdown">
+        <img src="{{ asset('admin/images/user2-160x160.jpg') }}" class="mr-2 img-circle elevation-2" alt="User Image"
+          style="object-fit: cover; width: 36px; height: 36px;" />
+        <p class="d-none d-md-inline">Alexander Pierce</p>
+      </a>
+      <div class="dropdown-menu shadow" style="min-width: 240px;">
+        <a href="" class="dropdown-item text-dark">
+          <i class="fas fa-user mr-2"></i>
+          Xem hồ sơ
+        </a>
+        <div class="dropdown-divider"></div>
+        <form method="POST" action="">
+          @csrf
+          <button type="submit" class="dropdown-item text-danger">
+            <i class="fas fa-sign-out-alt mr-2"></i>
+            Đăng xuất
+          </button>
+        </form>
+      </div>
+    </div>
+
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview"
         role="menu" data-accordion="false">
@@ -13,7 +35,7 @@
           <a href="{{ route('admin.dashboard.index') }}"
             class="nav-link {{ !request()->is('admin/dashboard') ?: 'active' }}">
             <i class="nav-icon fas fa-home"></i>
-            <span>Trang chủ</span>
+            <p>Trang chủ</p>
           </a>
         </li>
         <li class="nav-item">
@@ -48,35 +70,6 @@
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <p>Cài Đặt Vận Chuyển</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item {{ request()->routeIs('admin.articles.*') ? 'menu-open' : '' }}">
-          <a href="#!" class="nav-link">
-            <i class="nav-icon fas fa-sticky-note"></i>
-            <p>
-              Bài viết
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('admin.articles.index') }}"
-                class="nav-link {{ request()->routeIs('admin.articles.index') ? 'active' : '' }}">
-                <p>Quản lý bài viết</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('admin.articles.create') }}"
-                class="nav-link {{ request()->routeIs('admin.articles.create') ? 'active' : '' }}">
-                <p>Tạo bài viết</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('admin.categories.articles.index') }}"
-                class="nav-link {{ request()->is('admin/articles/categories') ? 'active' : '' }}">
-                <p>Danh mục bài viết</p>
               </a>
             </li>
           </ul>

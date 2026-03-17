@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Services\ProductService;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductAttributes;
-use App\Models\ProductBrands;
-use App\Models\ProductImages;
-use App\Models\ProductSuppliers;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,12 +25,12 @@ class ProductController extends Controller
 
     $category_id = $request->query('category_id');
     if (!empty($category_id)) {
-      $products = $products->where('product_category_id', $category_id);
+      $products = $products->where('category_id', $category_id);
     }
 
     $brand_id = $request->query('brand_id');
     if (!empty($brand_id)) {
-      $products = $products->where('product_brand_id', $brand_id);
+      $products = $products->where('brand_id', $brand_id);
     }
 
     $start_price = $request->query('start_price');
@@ -47,25 +45,23 @@ class ProductController extends Controller
 
     $products = $products->paginate(10)->withQueryString();
 
-    $product_categories = Category::where('type', 'product')->get(['id', 'name']);
-    $product_brands = ProductBrands::all(['id', 'name']);
+    $categories = Category::get(['id', 'name']);
+    $brands = Brand::all(['id', 'name']);
 
     return view('admin.products.index', [
       'products' => $products,
-      'product_categories' => $product_categories,
-      'product_brands' => $product_brands,
+      'categories' => $categories,
+      'brands' => $brands,
     ]);
   }
 
   public function create()
   {
-    $categories = Category::where('type', 'product')->get(['id', 'name']);
-    $suppliers = ProductSuppliers::all();
-    $brands = ProductBrands::all();
+    $categories = Category::get(['id', 'name']);
+    $brands = Brand::all();
 
     return view('admin.products.create', [
       'categories' => $categories,
-      'suppliers' => $suppliers,
       'brands' => $brands
     ]);
   }
@@ -91,7 +87,7 @@ class ProductController extends Controller
           "public/products/{$product->id}",
           $productImages[$i]
         );
-        $productImageObjs[] = new ProductImages([
+        $productImageObjs[] = new ProductImage([
           'product_id' => $product->id,
           'image' => basename($path),
           'description' => '',
@@ -140,9 +136,8 @@ class ProductController extends Controller
   public function edit(int $id)
   {
     $categories = Category::where('type', 'product')->get(['id', 'name']);
-    $suppliers = ProductSuppliers::all();
-    $brands = ProductBrands::all();
-    $images = ProductImages::all();
+    $brands = Brand::all();
+    $images = ProductImage::all();
     $product = Product::with('category')
       ->with('supplier')
       ->with('brand')
@@ -151,7 +146,6 @@ class ProductController extends Controller
     return view('admin.pages.products.edit', [
       'product' => $product,
       'categories' => $categories,
-      'suppliers' => $suppliers,
       'brands' => $brands,
       'images' => $images,
     ]);

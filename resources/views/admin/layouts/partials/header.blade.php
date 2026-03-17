@@ -129,20 +129,5 @@
         </a>
       </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-        <i class="fas fa-expand-arrows-alt"></i>
-      </a>
-    </li>
-    <li class="nav-item dropdown" style="cursor: pointer;">
-      <div class="user-panel" data-toggle="dropdown">
-        <div class="image">
-          <img src="{{ asset('admin/images/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-        </div>
-      </div>
-      <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-        <a href="/admin/logout" class="dropdown-item">Logout</a>
-      </div>
-    </li>
   </ul>
 </nav>

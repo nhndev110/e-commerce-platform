@@ -2,10 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Brand;
 use App\Models\Category;
-use App\Models\ProductBrands;
-use App\Models\ProductCategories;
-use App\Models\ProductSuppliers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -30,13 +28,11 @@ class ProductFactory extends Factory
       'slug' => $slug,
       'description' => fake()->paragraph(20),
       'price' => fake()->randomFloat(2, 20, 100),
-      'discount' => fake()->numberBetween(10, 80),
       'thumbnail' => $thumbnail,
       'visibility' => fake()->randomElement([-1, 0, 1]),
       'total_stock_qty' => fake()->randomNumber(4, true),
-      'category_id' => fake()->randomElement(Category::where('type', 'product')->get())->id,
-      'product_brand_id' => fake()->randomElement(ProductBrands::all())->id,
-      'product_supplier_id' => fake()->randomElement(ProductSuppliers::all())->id,
+      'category_id' => Category::factory(),
+      'brand_id' => Brand::factory(),
     ];
   }
 }

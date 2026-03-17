@@ -18,9 +18,11 @@ class DatabaseSeeder extends Seeder
       RoleSeeder::class,
       UserSeeder::class,
       CategorySeeder::class,
-      ProductBrandsSeeder::class,
-      ProductSuppliersSeeder::class,
+      BrandSeeder::class,
       ProductSeeder::class,
+      AttributeGroupSeeder::class,
+      AttributeValueSeeder::class,
+      ProductAttributeGroupSeeder::class,
     ]);
   }
 }

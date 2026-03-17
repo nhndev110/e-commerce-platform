@@ -19,7 +19,6 @@ return new class extends Migration
       $table->string('slug')->nullable();
       $table->text('description')->nullable();
       $table->decimal('price', 15, 2);
-      $table->integer('discount')->nullable();
       $table->string('thumbnail')->nullable();
       $table->integer('total_stock_qty')->nullable();
       $table->tinyInteger('visibility')->nullable();
@@ -28,16 +27,12 @@ return new class extends Migration
         ->constrained()
         ->onUpdate('cascade')
         ->onDelete('cascade');
-      $table->foreignId('product_brand_id')
+      $table->foreignId('brand_id')
         ->nullable()
         ->constrained()
         ->onUpdate('cascade')
         ->onDelete('cascade');
-      $table->foreignId('product_supplier_id')
-        ->nullable()
-        ->constrained()
-        ->onUpdate('cascade')
-        ->onDelete('cascade');
+      $table->timestamps();
     });
   }
 

@@ -13,17 +13,15 @@ return new class extends Migration
    */
   public function up()
   {
-    Schema::create('product_attributes', function (Blueprint $table) {
-      $table->id();
+    Schema::create('product_attribute_groups', function (Blueprint $table) {
       $table->foreignId('product_id')
-        ->nullable()
         ->constrained()
         ->onUpdate('cascade')
         ->onDelete('cascade');
-      $table->string('option');
-      $table->string('value');
-      $table->integer('stock_qty');
-      $table->integer('display_order');
+      $table->foreignId('group_id')
+        ->constrained('attribute_groups')
+        ->onUpdate('cascade')
+        ->onDelete('cascade');
     });
   }
 
@@ -34,6 +32,6 @@ return new class extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('product_attributes');
+    Schema::dropIfExists('product_attribute_groups');
   }
 };

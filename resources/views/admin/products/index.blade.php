@@ -2,12 +2,12 @@
 
 @section('title', 'Quản lý sản phẩm')
 
-@section('Styles')
-@endsection
+@push('styles')
+@endpush
 
-@section('Scripts')
+@push('scripts')
   <script type="module" src="{{ asset('admin/js/products/index.js') }}"></script>
-@endsection
+@endpush
 
 @section('main')
   <section class="content-header">
@@ -37,7 +37,7 @@
                 <label for="category">Danh mục</label>
                 <select name="category_id" id="category" class="custom-select select2">
                   <option value="">---- Chọn danh mục ----</option>
-                  @foreach ($product_categories as $category)
+                  @foreach ($categories as $category)
                     <option {{ request()->query('category_id') == $category->id ? 'selected' : '' }}
                       value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
@@ -47,7 +47,7 @@
                 <label for="brand">Nhãn hàng</label>
                 <select name="brand_id" id="brand" class="custom-select select2">
                   <option value="">---- Chọn nhãn hàng ----</option>
-                  @foreach ($product_brands as $brand)
+                  @foreach ($brands as $brand)
                     <option {{ request()->query('brand_id') == $brand->id ? 'selected' : '' }}
                       value="{{ $brand->id }}">
                       {{ $brand->name }}</option>
@@ -74,9 +74,6 @@
                     </button>
                   </div>
                 </div>
-                <div class="flex-grow-1">
-                </div>
-
               </div>
             </div>
           </form>
@@ -90,7 +87,6 @@
                   <th>Product</th>
                   <th>Stock</th>
                   <th>Price</th>
-                  <th>Discount</th>
                   <th>Visibility</th>
                   <th>Action</th>
                 </tr>
@@ -127,7 +123,6 @@
                         <span class="ml-2">{{ $product->price }}</span>
                       </div>
                     </td>
-                    <td class="align-middle">{{ $product->discount }}%</td>
                     <td class="align-middle">
                       @if ($product->visibility == 1)
                         <span class="badge badge-success badge-pill px-2">Pushlish</span>

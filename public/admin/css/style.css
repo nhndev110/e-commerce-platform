@@ -26,8 +26,20 @@ body {
   color: #aaa;
 }
 
-.required-field::after {
+.required-field::before {
   content: "*";
   color: red;
-  margin-left: 2px;
+  padding-right: 2px;
+}
+
+.top-0 {
+  top: 0 !important;
+}
+
+.start-100 {
+  left: 100% !important;
+}
+
+.translate-middle {
+  transform: translate(-50%, -50%) !important;
 }

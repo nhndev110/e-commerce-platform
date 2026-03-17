@@ -8,7 +8,7 @@
   {{-- <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/icons/favicon-32x32.png') }}" /> --}}
   {{-- <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/icons/favicon-16x16.png') }}" /> --}}
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,500,700&display=fallback" />
   <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('admin/plugins/ckeditor5/ckeditor5.css') }}" />
   <link rel="stylesheet" href="{{ asset('admin/plugins/dropzone/dropzone.min.css') }}" />
@@ -16,17 +16,18 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}" />
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}" />
-  @yield('Styles')
+  @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
   <div class="wrapper">
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="{{ asset('admin/images/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60"
-        width="60" />
+      <img class="animation__shake" src="{{ asset('admin/images/AdminLTELogo.png') }}" alt="AdminLTELogo"
+        height="60" width="60" />
     </div>
 
     @include('admin.layouts.partials.header')
@@ -44,6 +45,10 @@
   <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
   <!-- Bootstrap -->
   <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- OverlayScrollbars -->
+  <script src="{{ asset('admin/plugins/overlayScrollbars/js/OverlayScrollbars.min.js') }}"></script>
+  <!-- Moment -->
+  <script src="{{ asset('admin/plugins/moment/moment-with-locales.min.js') }}"></script>
   <!-- Dropzone -->
   <script src="{{ asset('admin/plugins/dropzone/dropzone.min.js') }}"></script>
   <!-- bs-custom-file-input -->
@@ -60,10 +65,12 @@
   <script src="{{ asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <!-- Inputmask -->
   <script src="{{ asset('admin/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+  <!-- Sortable -->
+  <script src="{{ asset('admin/plugins/sortable/Sortable.min.js') }}"></script>
   <!-- Theme Script -->
   <script src="{{ asset('admin/js/adminlte.min.js') }}"></script>
   <script src="{{ asset('admin/js/main.js') }}"></script>
-  @yield('Scripts')
+  @stack('scripts')
 </body>
 
 </html>

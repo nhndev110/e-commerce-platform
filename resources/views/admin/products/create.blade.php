@@ -2,28 +2,13 @@
 
 @section('title', 'Thêm sản phẩm mới')
 
-@section('css')
-  <link rel="stylesheet" href="{{ asset('admin/plugins/ckeditor5/ckeditor5.css') }}">
-  <link rel="stylesheet" href="{{ asset('admin/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('admin/css/products/create.css') }}">
-  <style>
-    .ck-editor__editable {
-      min-height: 300px;
-    }
-  </style>
-@endsection
+@push('styles')
+  {{-- <link rel="stylesheet" href="{{ asset('admin/css/products/create.css') }}"> --}}
+@endpush
 
-@section('js')
-  <script src="{{ asset('admin/plugins/dropzone/dropzone.min.js') }}"></script>
-  <script src="{{ asset('admin/plugins/moment/moment-with-locales.min.js') }}"></script>
-  <script src="{{ asset('admin/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-  <script src="{{ asset('admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-  <script src="{{ asset('admin/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-  <script src="{{ asset('admin/plugins/sortable/Sortable.min.js') }}"></script>
-  <script src="{{ asset('admin/plugins/sortable/jquery-sortable.min.js') }}"></script>
-  <script type="module" src="{{ asset('admin/js/products/create.js') }}"></script>
-@endsection
+@push('scripts')
+  {{-- <script type="module" src="{{ asset('admin/js/products/create.js') }}"></script> --}}
+@endpush
 
 @section('main')
   <section class="content-header">
@@ -66,27 +51,28 @@
                       onchange="document.getElementById('previewProductThumbnail').src = window.URL.createObjectURL(this.files[0])" />
                   </div>
                   <img src="https://placehold.co/200" id="previewProductThumbnail" class="border border-dark rounded"
-                    style="object-fit: cover; height: 150px; width: 250px;" />
+                    style="object-fit: cover; height: 150px; width: 150px;" />
                 </div>
 
-                <div class="form-group row">
-                  <label for="productName" class="col-sm-2 col-form-label text-right">Tên sản phẩm</label>
-                  <div class="col-sm-10">
+                <div class="form-group row align-items-start">
+                  <label for="productName" class="col-2 col-form-label text-right required-field text-nowrap">Tên sản
+                    phẩm</label>
+                  <div class="col-10">
                     <input type="text" class="form-control" id="productName" name="productName"
                       placeholder="Nhập tên sản phẩm" autocomplete="off" />
                   </div>
                 </div>
 
-                <div class="form-group row">
-                  <label for="productPrice" class="col-sm-2 col-form-label text-right">Giá</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="productPrice" name="productPrice"
-                      placeholder="Nhập giá" autocomplete="off" />
+                <div class="form-group row align-items-start">
+                  <label for="productPrice" class="col-2 col-form-label text-right required-field">Giá</label>
+                  <div class="col-10">
+                    <input type="text" class="form-control number-separator text-left" id="productPrice"
+                      name="productPrice" placeholder="Nhập giá" autocomplete="off" />
                   </div>
                 </div>
 
-                <div class="form-group row">
-                  <label for="productDescription" class="col-sm-2 col-form-label text-right">Mô tả</label>
+                <div class="form-group row align-items-start">
+                  <label for="productDescription" class="col-sm-2 col-form-label text-right required-field">Mô tả</label>
                   <div class="col-sm-10">
                     <textarea class="form-control" id="productDescription" name="productDescription" placeholder="Nhập mô tả sản phẩm"
                       rows="6"></textarea>
@@ -99,7 +85,7 @@
           <div class="col-12 col-lg-4">
             <div class="card">
               <div class="card-header">
-                <h2 class="m-0 card-title">Phân loại</h2>
+                <h2 class="m-0 card-title">Thiết lập sản phẩm</h2>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool bg-light" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -113,16 +99,6 @@
                     <option value="" selected>---- Chọn danh mục ----</option>
                     @foreach ($categories as $category)
                       <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="supplier">Nhà cung cấp</label>
-                  <select class="custom-select select2" name="supplier" id="supplier">
-                    <option value="" selected>---- Chọn nhà cung cấp ----</option>
-                    @foreach ($suppliers as $supplier)
-                      <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -180,11 +156,15 @@
 
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title m-0">Hình ảnh sản phẩm</h2>
+          <h2 class="card-title m-0">Phương tiện</h2>
           <div class="card-tools">
             <button class="btn bg-light btn-tool" data-toggle="modal" data-target="#exampleModal">
               <i class="fas fa-plus"></i>
               <span class="ml-1">Thêm hình ảnh</span>
+            </button>
+            <button class="btn bg-light btn-tool" data-toggle="modal" data-target="#exampleModal">
+              <i class="fas fa-plus"></i>
+              <span class="ml-1">Thêm video</span>
             </button>
             @include('admin.products.upload-file')
             <button class="btn btn-tool bg-light" data-card-widget="collapse">
@@ -193,17 +173,55 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="m-0 text-muted text-center">Bạn chưa thêm hình ảnh nào</p>
+          {{-- <p class="m-0 text-muted text-center">Bạn chưa thêm hình ảnh nào</p> --}}
+          <h3 class="mb-4 h5">Danh sách ảnh</h3>
+          <div class="d-flex flex-wrap">
+            @for ($i = 1; $i <= 9; $i++)
+              <div class="card rounded overflow-hidden" style="margin-right: 12px;">
+                <div class="card-body p-0">
+                  <img src="https://placehold.co/600x400" class="card-img-top" alt="Hình ảnh"
+                    style="object-fit: cover; height: 100px; width: 100px;" />
+                </div>
+                <div class="card-footer bg-white p-0 d-flex justify-content-center">
+                  <button class="btn btn-sm preview-btn">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                  <button class="btn btn-sm delete-btn">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            @endfor
+          </div>
+
+          <h3 class="mb-4 h5">Video</h3>
+          <div class="d-flex">
+            <div class="card rounded overflow-hidden">
+              <div class="card-body p-0">
+                <video controls style="object-fit: cover; height: 100px; width: 100px;">
+                  <source src="movie.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="card-footer bg-white p-0 d-flex justify-content-center">
+                <button class="btn btn-sm preview-btn">
+                  <i class="fas fa-expand"></i>
+                </button>
+                <button class="btn btn-sm delete-btn">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title m-0">Phân loại sản phẩm</h2>
+          <h2 class="card-title m-0">Thông tin bán hàng</h2>
           <div class="card-tools">
-            <button class="btn bg-light btn-tool" data-toggle="modal" data-target="#exampleModal">
+            <button class="btn bg-light btn-tool" data-toggle="modal" data-target="#addCategoryGroupModal">
               <i class="fas fa-plus"></i>
-              <span class="ml-1">Thêm phân loại</span>
+              <span class="ml-1">Thêm nhóm phân loại</span>
             </button>
             <button type="button" class="btn bg-light btn-tool" data-card-widget="collapse">
               <i class="fas fa-minus"></i>
@@ -211,46 +229,52 @@
           </div>
         </div>
         <div class="card-body">
-          <div id="product-attribute-list">
-            <div id="product-attribute-template"
-              class="product-attribute row align-items-start justify-content-between">
-              <div class="col-1">
-                <button class="btn btn-default btn-sm handle mb-2" type="button">
-                  <i class="fas fa-arrows-alt" aria-hidden="true"></i>
+          <div class="category-group mb-3 bg-light rounded p-4">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="h5 mb-2">Màu sắc</p>
+                <button class="btn btn-primary btn-sm d-block mb-2">
+                  <i class="fas fa-plus"></i>
+                  <span class="ml-1">Thêm thuộc tính</span>
                 </button>
-                <button class="btn delete-attribute btn-danger btn-sm" type="button">
-                  <i class="fas fa-trash" aria-hidden="true"></i>
+                <button class="btn btn-danger btn-sm d-block mb-2">
+                  <i class="fas fa-trash"></i>
+                  <span class="ml-1">Xóa nhóm</span>
                 </button>
               </div>
-              <div class="col-3">
-                <div class="form-group">
-                  <label for="productAttributeOption">Options</label>
-                  <input id="productAttributeOption" name="productAttributeOption" class="form-control"
-                    placeholder="Enter options" />
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="form-group">
-                  <label for="productAttributeValue">Value</label>
-                  <input id="productAttributeValue" name="productAttributeValue" class="form-control"
-                    placeholder="Enter value" />
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="form-group">
-                  <label for="productAttributeStock">Stock Qty</label>
-                  <input type="number" id="productAttributeStock" name="productAttributeStock" class="form-control"
-                    placeholder="Enter value" />
+              <div class="col-md-8">
+                <div class="d-flex flex-wrap">
+                  <span class="badge badge-info position-relative mr-4 mb-4 px-4 py-2" style="font-size: 0.9rem;">
+                    Đỏ
+                    <a href=""
+                      class="badge badge-pill badge-danger p-2 position-absolute top-0 start-100 translate-middle"
+                      aria-label="Close">
+                      <i class="fas fa-times"></i>
+                    </a>
+                  </span>
+                  <span class="badge badge-info position-relative mr-4 mb-4 px-4 py-2" style="font-size: 0.9rem;">
+                    Xanh
+                    <a href=""
+                      class="badge badge-pill badge-danger p-2 position-absolute top-0 start-100 translate-middle"
+                      aria-label="Close">
+                      <i class="fas fa-times"></i>
+                    </a>
+                  </span>
+                  <span class="badge badge-info position-relative mr-4 mb-4 px-4 py-2" style="font-size: 0.9rem;">
+                    Vàng
+                    <a href=""
+                      class="badge badge-pill badge-danger p-2 position-absolute top-0 start-100 translate-middle"
+                      aria-label="Close">
+                      <i class="fas fa-times"></i>
+                    </a>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer text-right">
-          <button id="btn-add-attribute" class="btn btn-primary btn-sm" type="button">
-            <i class="fas fa-plus"></i>
-            <span class="ml-2 font-weight-bold">Add another option</span>
-          </button>
+          <a href="" class="btn btn-secondary btn-sm">
+            Danh sách nhóm phân loại
+          </a>
         </div>
       </div>
     </div>

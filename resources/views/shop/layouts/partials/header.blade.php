@@ -208,9 +208,9 @@
             <li>
               <a href="{{ route('shop.index') }}">Shop</a>
             </li>
-            <li>
+            {{-- <li>
               <a href="{{ route('blog.index') }}">Blog</a>
-            </li>
+            </li> --}}
           </ul>
         </nav>
       </div>

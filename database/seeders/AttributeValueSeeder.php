@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\ProductSuppliers;
+use App\Models\AttributeValue;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ProductSuppliersSeeder extends Seeder
+class AttributeValueSeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -15,6 +15,6 @@ class ProductSuppliersSeeder extends Seeder
    */
   public function run()
   {
-    ProductSuppliers::factory()->count(10)->create();
+    AttributeValue::factory()->count(30)->create();
   }
 }
